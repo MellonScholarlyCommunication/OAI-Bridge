@@ -1,3 +1,6 @@
+componentsjs-error-state.json
 in/**
+err/**
+out/**
 node_modules/**
 biblio.db

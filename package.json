@@ -6,8 +6,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "node src/index.js",
-    "clean": "rm in/*",
+    "demo:oai": "node src/index.js",
+    "demo:orch-demo": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/demo.n3",
+    "demo:orch-ldn": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/sendNotification.n3",
+    "demo:pol": "npx pol --single out/1.ttl --info --keep",
+    "clean": "rm in/* ; rm out/*",
     "clean:real": "npm run clean ; rm ./biblio.db"
   },
   "keywords": [
@@ -19,10 +22,12 @@
   "author": "Patrick Hochstenbach",
   "license": "MIT",
   "dependencies": {
+    "koreografeye": "^0.2.2",
     "log4js": "^6.9.1",
     "md5": "^2.3.0",
     "n3": "^1.16.4",
     "node-fetch": "^3.3.1",
+    "nodemailer": "^6.9.1",
     "oai-pmh": "^2.0.3",
     "sqlite3": "^5.1.6"
   }

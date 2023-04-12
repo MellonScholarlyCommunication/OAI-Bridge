@@ -27,8 +27,25 @@ Harvest the OAI data of the last two days and generate Event Notification fragme
 of the changed records
 
 ```
-npm run demo
+npm run demo:oai
 ```
+
+Run an orchestrator on a single `demo/1.ttl` file requesting processing it with the 
+`rules/sendNotification.n3` rule file. This rule requests to send `sorg:AboutPage` with
+at least an `as:url` to a test inbox of the COAR notify project.
+
+```
+npm run demo:orch-ldn
+```
+
+The previous step created a `out/1.ttl` file which need to be executed. This still will
+send out the requested Event Notification to the COAR [demo inbox](https://ldninbox.antleaf.com/inbox).
+
+```
+npm run demo:orch-pol
+```
+
+Visit https://ldninbox.antleaf.com/inbox and check the latest incoming notification.
 
 # Project
 
