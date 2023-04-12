@@ -1,0 +1,9 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#>.
+@prefix ietf: <http://www.iana.org/assignments/relation/>.
+@prefix sorg: <https://schema.org/>.
+
+<https://biblio.ugent.be/publication/01GQZ2V6ZE3B2J2SE0TWPJZTMV> a sorg:AboutPage;
+    sorg:name "Temperament structure in stuttering, voice disordered, and typically developing children";
+    sorg:datePublished "2007";
+    sorg:creator <https://orcid.org/0000-0003-4221-2063>;
+    sorg:affiliation <https://biblio.ugent.be/organization/GE37>.

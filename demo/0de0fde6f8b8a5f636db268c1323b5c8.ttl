@@ -1,0 +1,14 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#>.
+@prefix ietf: <http://www.iana.org/assignments/relation/>.
+@prefix sorg: <https://schema.org/>.
+
+<https://biblio.ugent.be/publication/01GQPYSHSXQ60S2EY6YX3F225G> a sorg:AboutPage;
+    sorg:name "Combining clutter reduction methods for temporal network visualization";
+    sorg:datePublished "2022";
+    ietf:cite-as <https://doi.org/10.1145/3477314.3507018>;
+    as:url <https://biblio.ugent.be/publication/01GQPYSHSXQ60S2EY6YX3F225G/file/01GXR9HZCD5N705QPZ9SP2D3SH.pdf>.
+<https://biblio.ugent.be/publication/01GQPYSHSXQ60S2EY6YX3F225G/file/01GXR9HZCD5N705QPZ9SP2D3SH.pdf> as:mediaType <application/pdf>;
+    <http://purl.org/dc/terms/accessRights> "restricted";
+    a as:Article, sorg:ScholarlyArticle.
+<https://biblio.ugent.be/publication/01GQPYSHSXQ60S2EY6YX3F225G> sorg:creator <https://orcid.org/0000-0001-9046-8739>;
+    sorg:affiliation <https://biblio.ugent.be/organization/EB21>, <https://biblio.ugent.be/organization/WE05>.

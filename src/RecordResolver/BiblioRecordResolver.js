@@ -50,15 +50,18 @@ export class BiblioRecordResolver {
 
         if (json.file && json.file.length > 0) {
             let file = json.file[json.file.length - 1];
-            record.file = {
-                id: file.url ,
-                mediaType: file.content_type,
-                access: file.access,
-                type: [
-                    'as:Article',
-                    'schema:ScholarlyArticle'
-                ] 
-            };
+
+            if (file.url) {
+                record.file = {
+                    id: file.url ,
+                    mediaType: file.content_type,
+                    access: file.access,
+                    type: [
+                        'as:Article',
+                        'schema:ScholarlyArticle'
+                    ] 
+                };
+            }
         }
 
         if (json.author && json.author.length > 0) {
