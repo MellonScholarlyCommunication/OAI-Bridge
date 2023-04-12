@@ -1,0 +1,28 @@
+{
+  "name": "oai-bridge",
+  "version": "0.0.1",
+  "description": "A OAI-PMH to Event Notifications bridge",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm in/*",
+    "clean:real": "npm run clean ; rm ./biblio.db"
+  },
+  "keywords": [
+    "oai-pmh",
+    "event",
+    "notifications",
+    "ldn"
+  ],
+  "author": "Patrick Hochstenbach",
+  "license": "MIT",
+  "dependencies": {
+    "log4js": "^6.9.1",
+    "md5": "^2.3.0",
+    "n3": "^1.16.4",
+    "node-fetch": "^3.3.1",
+    "oai-pmh": "^2.0.3",
+    "sqlite3": "^5.1.6"
+  }
+}
