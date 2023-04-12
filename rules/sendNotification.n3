@@ -17,6 +17,9 @@
 }
 =>
 {
+    # When the conditions above hold, the I want a policy executed
+    # that sends out a LDN notification to the COAR demo inbox 
+    # with the mathching sorg:AboutPage as as:object
     ex:MySendNotificationDemo pol:policy [
         a fno:Execution ;
         fno:executes ex:sendNotification ;
@@ -30,6 +33,8 @@
         ]
     ] .
 }.
+
+# Some metadata about the actors involved in this communication
 
 <http://patrickhochstenbach.net/profile/card#me> 
     a as:Person ;
