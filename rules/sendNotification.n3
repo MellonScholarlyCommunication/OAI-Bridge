@@ -13,7 +13,7 @@
     ?id a sorg:AboutPage .
 
     # This about page should also have a url
-    ?is as:url ?url .
+    ?id as:url ?url .
 }
 =>
 {
