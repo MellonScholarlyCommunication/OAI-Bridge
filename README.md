@@ -42,7 +42,7 @@ The previous step created a `out/1.ttl` file which need to be executed. This sti
 send out the requested Event Notification to the COAR [demo inbox](https://ldninbox.antleaf.com/inbox).
 
 ```
-npm run demo:orch-pol
+npm run demo:pol
 ```
 
 Visit https://ldninbox.antleaf.com/inbox and check the latest incoming notification.

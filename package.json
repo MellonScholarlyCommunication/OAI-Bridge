@@ -22,12 +22,11 @@
   "author": "Patrick Hochstenbach",
   "license": "MIT",
   "dependencies": {
-    "koreografeye": "^0.2.2",
+    "koreografeye": "^0.2.3",
     "log4js": "^6.9.1",
     "md5": "^2.3.0",
     "n3": "^1.16.4",
     "node-fetch": "^3.3.1",
-    "nodemailer": "^6.9.1",
     "oai-pmh": "^2.0.3",
     "sqlite3": "^5.1.6"
   }

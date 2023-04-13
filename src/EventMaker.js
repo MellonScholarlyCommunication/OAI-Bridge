@@ -106,7 +106,7 @@ export class EventMaker {
                     quad(
                         namedNode(info.file.id),
                         namedNode(this.prefix_expand('as:mediaType')),
-                        namedNode(info.file.mediaType)
+                        literal(info.file.mediaType)
                     ) 
                 );
 
