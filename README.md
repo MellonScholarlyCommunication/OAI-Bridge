@@ -23,10 +23,13 @@ Remove all data from `./in` and delete the cache file `./biblio.db`.
 npm run clean:real
 ```
 
-Harvest some OAI data from an institutional repository (incremental harvesting).
+Harvest some OAI data from an institutional repository (incremental harvesting). By 
+default we process only 10 records at a time and serialize only records that contain
+full text. You may want to run this command several times when a repository has very
+many recent uploaded/changed records.
 
 ```
-npm run oai:biblio
+npm run oai:hal
 ```
 
 Run an orchestrator on a single `demo/1.ttl` file requesting processing it with the 
