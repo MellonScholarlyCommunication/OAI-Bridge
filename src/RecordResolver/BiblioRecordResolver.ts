@@ -23,18 +23,19 @@ export class BiblioRecordResolver extends AbstractRecordResolver {
             json = await res.json();
         }
         else {
+            this.logger.error(`biblio failed with ${res.status} : ${res.statusText}`);
             return null;
         }
 
         let record : any = { id: url };
 
-        if (json.title) {
-            record.title = json.title;
-        }
+        // if (json.title) {
+        //     record.title = json.title;
+        // }
 
-        if (json.year) {
-            record.year = json.year;
-        }
+        // if (json.year) {
+        //     record.year = json.year;
+        // }
 
         if (json.doi && json.doi.length > 0) {
             record.doi = json.doi[0];
@@ -63,28 +64,28 @@ export class BiblioRecordResolver extends AbstractRecordResolver {
             }
         }
 
-        if (json.author && json.author.length > 0) {
-            let orcIds : string[] = [];
-            json.author.forEach( (author: any) => {
-                if (author.orcid_id) {
-                    orcIds.push('https://orcid.org/' + author.orcid_id);
-                }
-            });
+        // if (json.author && json.author.length > 0) {
+        //     let orcIds : string[] = [];
+        //     json.author.forEach( (author: any) => {
+        //         if (author.orcid_id) {
+        //             orcIds.push('https://orcid.org/' + author.orcid_id);
+        //         }
+        //     });
 
-            record.authors = orcIds;
-        }
+        //     record.authors = orcIds;
+        // }
 
-        if (json.affiliation && json.affiliation.length > 0) {
-            let aff : string[] = [];
+        // if (json.affiliation && json.affiliation.length > 0) {
+        //     let aff : string[] = [];
 
-            json.affiliation.forEach( (affiliation: any) => {
-                if (affiliation.ugent_id) {
-                    aff.push( 'https://biblio.ugent.be/organization/' + affiliation.ugent_id);
-                }
-            });
+        //     json.affiliation.forEach( (affiliation: any) => {
+        //         if (affiliation.ugent_id) {
+        //             aff.push( 'https://biblio.ugent.be/organization/' + affiliation.ugent_id);
+        //         }
+        //     });
 
-            record.affiliation = aff;
-        }
+        //     record.affiliation = aff;
+        // }
 
         return record;
     }

@@ -44,6 +44,10 @@
       {
         "@id": "https://biblio.ugent.be/oai",
         "@type": "BiblioRecordResolver"
+      },
+      {
+        "@id": "https://api.archives-ouvertes.fr/oai/hal/",
+        "@type": "HalRecordResolver"
       }
     ]
 }

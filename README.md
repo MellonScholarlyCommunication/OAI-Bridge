@@ -23,11 +23,10 @@ Remove all data from `./in` and delete the cache file `./biblio.db`.
 npm run clean:real
 ```
 
-Harvest the OAI data of the last two days and generate Event Notification fragments only
-of the changed records
+Harvest some OAI data from an institutional repository (incremental harvesting).
 
 ```
-npm run demo:oai
+npm run oai:biblio
 ```
 
 Run an orchestrator on a single `demo/1.ttl` file requesting processing it with the 

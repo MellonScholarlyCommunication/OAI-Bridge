@@ -1,6 +1,6 @@
 {
   "name": "oaibridge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "lsd:module": true,
   "description": "A OAI-PMH to Event Notifications bridge",
   "main": "dist/index.js",
@@ -16,12 +16,13 @@
     "build:ts": "npm exec tsc",
     "build:components": "componentsjs-generator -s dist -r oaib13",
     "prepare": "npm run build",
-    "demo:oai": "node dist/client.js https://biblio.ugent.be/oai",
+    "oai:biblio": "node dist/client.js --info --max 10 https://biblio.ugent.be/oai",
+    "oai:hal": "node dist/client.js --info --max 10 --setSpec 'collection:SCPO_OA' https://api.archives-ouvertes.fr/oai/hal/",
     "demo:orch-demo": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/demo.n3",
     "demo:orch-ldn": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/sendNotification.n3",
     "demo:pol": "npx pol --single out/1.ttl --info --keep",
     "clean": "rm in/* ; rm out/*",
-    "clean:real": "npm run clean ; rm ./biblio.db"
+    "clean:real": "npm run clean ; rm ./cache.db"
   },
   "keywords": [
     "oai-pmh",

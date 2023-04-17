@@ -8,26 +8,25 @@ export class ListIdentifiersWatcher extends Watcher {
     databaseFile : string;
     baseUrl : string;
     options : any;
+    max = -1;
 
     constructor(
             logger: log4js.Logger,
             databaseFile: string, 
             baseUrl: string, 
             metadataPrefix: string, 
-            options: any ) {
+            options: any ,
+            max?: number) {
         super(logger);
 
         this.databaseFile = databaseFile;
         this.baseUrl = baseUrl;
-        
-        if (! options) {
-            this.options = {};
-        }
-        else {
-            this.options = options;
-        }
-
+        this.options = options;
         this.options['metadataPrefix'] = metadataPrefix;
+
+        if (max) {
+            this.max = max;
+        }
     }
 
     async watch() {
@@ -38,7 +37,14 @@ export class ListIdentifiersWatcher extends Watcher {
 
         await this.create_table(db);
 
+        let record_number = 0;
+
         for await (const identifier of identifierIterator) {
+
+            if (this.max >= 0 && record_number >= this.max) {
+                break;
+            }
+
             const existingRow = await this.exists_record(db,identifier);
    
             if (identifier['$'] && identifier['$']['status']) {
@@ -52,6 +58,7 @@ export class ListIdentifiersWatcher extends Watcher {
                 if (existingRow.datestamp !== identifier.datestamp) {
                     await this.update_record(db,identifier);
                     this.emit('update',identifier);
+                    record_number++;
                 }
                 else {
                     this.emit('old',identifier);
@@ -60,7 +67,9 @@ export class ListIdentifiersWatcher extends Watcher {
             else {
                 await this.insert_record(db,identifier);
                 this.emit('new',identifier);
+                record_number++;
             }
+
         }
 
         db.close();

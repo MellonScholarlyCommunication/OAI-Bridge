@@ -5,6 +5,7 @@ const { namedNode, literal, quad} = DataFactory;
 
 const AS_TYPE     = 'https://www.w3.org/ns/activitystreams#';
 const LDP_TYPE    = 'http://www.w3.org/ns/ldp#';
+const XSD_TYPE    = 'http://www.w3.org/2001/XMLSchema#';
 const EVENT_TYPE  = 'http://example.org/event#';
 const VCARD_TYPE  = 'http://www.w3.org/2006/vcard/ns#';
 const SCHEMA_TYPE = 'https://schema.org/';
@@ -14,7 +15,7 @@ const DCT_TYPE    = 'http://purl.org/dc/terms/';
 
 export class EventMaker {
 
-    prefix_expand(str: string) {
+    public prefix_expand(str: string) {
         if (str.startsWith('rdf:')) {
             return str.replace('rdf:',RDF_TYPE);
         }
@@ -25,7 +26,7 @@ export class EventMaker {
             return str.replace('ldp:',LDP_TYPE);
         }
         if (str.startsWith('xsd:')) {
-            return str.replace('xsd:',LDP_TYPE);
+            return str.replace('xsd:',XSD_TYPE);
         }
         if (str.startsWith('evt:')) {
             return str.replace('evt:',EVENT_TYPE);
@@ -45,7 +46,7 @@ export class EventMaker {
         return str;
     }
 
-    async make_turtle(info: any) {
+    public async make_turtle(info: any) {
         const writer = new n3.Writer({ 
             prefixes: { 
                 as: AS_TYPE ,
