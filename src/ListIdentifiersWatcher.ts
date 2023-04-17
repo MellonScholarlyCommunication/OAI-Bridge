@@ -1,9 +1,20 @@
-import { Watcher } from './Watcher.js';
-import oai from 'oai-pmh';
 import sqlite3 from 'sqlite3';
+import log4js from 'log4js';
+import { Watcher } from './Watcher.js';
+
+const oai = require('oai-pmh');
 
 export class ListIdentifiersWatcher extends Watcher {
-    constructor(logger,databaseFile, baseUrl, metadataPrefix, options) {
+    databaseFile : string;
+    baseUrl : string;
+    options : any;
+
+    constructor(
+            logger: log4js.Logger,
+            databaseFile: string, 
+            baseUrl: string, 
+            metadataPrefix: string, 
+            options: any ) {
         super(logger);
 
         this.databaseFile = databaseFile;
@@ -29,7 +40,6 @@ export class ListIdentifiersWatcher extends Watcher {
 
         for await (const identifier of identifierIterator) {
             const existingRow = await this.exists_record(db,identifier);
-            const id = identifier['identifier'];
    
             if (identifier['$'] && identifier['$']['status']) {
                 // We are okay

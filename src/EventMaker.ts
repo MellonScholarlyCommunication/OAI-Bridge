@@ -1,11 +1,10 @@
-import n3, { BlankNode } from 'n3';
+import n3 from 'n3';
 
 const { DataFactory } = n3;
-const { namedNode, literal, createBlankNode, quad} = DataFactory;
+const { namedNode, literal, quad} = DataFactory;
 
 const AS_TYPE     = 'https://www.w3.org/ns/activitystreams#';
 const LDP_TYPE    = 'http://www.w3.org/ns/ldp#';
-const XSD_TYPE    = 'http://www.w3.org/2001/XMLSchema#';
 const EVENT_TYPE  = 'http://example.org/event#';
 const VCARD_TYPE  = 'http://www.w3.org/2006/vcard/ns#';
 const SCHEMA_TYPE = 'https://schema.org/';
@@ -15,7 +14,7 @@ const DCT_TYPE    = 'http://purl.org/dc/terms/';
 
 export class EventMaker {
 
-    prefix_expand(str) {
+    prefix_expand(str: string) {
         if (str.startsWith('rdf:')) {
             return str.replace('rdf:',RDF_TYPE);
         }
@@ -46,7 +45,7 @@ export class EventMaker {
         return str;
     }
 
-    async make_turtle(info) {
+    async make_turtle(info: any) {
         const writer = new n3.Writer({ 
             prefixes: { 
                 as: AS_TYPE ,
@@ -54,7 +53,7 @@ export class EventMaker {
                 sorg: SCHEMA_TYPE
             } 
         });
-        return new Promise( (resolve,reject) =>  {
+        return new Promise<string>( (resolve,reject) =>  {
             writer.addQuad(
                 quad(
                     namedNode(info.id),
@@ -118,7 +117,7 @@ export class EventMaker {
                     ) 
                 );
 
-                info.file.type.forEach( (type) => {
+                info.file.type.forEach( (type: string) => {
                     writer.addQuad(
                         quad(
                             namedNode(info.file.id),
@@ -130,7 +129,7 @@ export class EventMaker {
             }
 
             if (info.authors) {
-                info.authors.forEach( (author) => {
+                info.authors.forEach( (author: string) => {
                     writer.addQuad(
                         quad(
                             namedNode(info.id),
@@ -142,7 +141,7 @@ export class EventMaker {
             }
 
             if (info.affiliation) {
-                info.affiliation.forEach( (affiliation) => {
+                info.affiliation.forEach( (affiliation: string) => {
                     writer.addQuad(
                         quad(
                             namedNode(info.id),
@@ -153,7 +152,7 @@ export class EventMaker {
                 });
             }
             
-            writer.end((error, result) => {
+            writer.end((error: any, result: string) => {
                 if (error) {
                     reject(error)
                 }

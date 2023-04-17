@@ -1,24 +1,23 @@
-import fetch from 'node-fetch';
+import { AbstractRecordResolver, type IRecordType } from './AbstractRecordResolver';
 
-export class BiblioRecordResolver {
-    constructor(logger) {
-        this.logger = logger;
-    }
+require('isomorphic-fetch');
 
-    async resolve(oai_id) {
+export class BiblioRecordResolver extends AbstractRecordResolver {
+
+    async resolve(oai_id: string) : Promise<string> {
         this.logger.info(`resolving ${oai_id}`);
         return 'https://biblio.ugent.be/publication/' + 
                 oai_id.replaceAll(/^oai:archive.ugent.be:/g,'');
     }
 
-    async metadata(url) {
+    async metadata(url: string) : Promise<IRecordType | null> {
         this.logger.debug(`metadata for ${url}`);
 
         let json_url = url + '.json';
        
         let res = await fetch(json_url);
 
-        let json;
+        let json : any;
 
         if (res.ok) {
             json = await res.json();
@@ -27,7 +26,7 @@ export class BiblioRecordResolver {
             return null;
         }
 
-        let record = { id: url };
+        let record : any = { id: url };
 
         if (json.title) {
             record.title = json.title;
@@ -65,8 +64,8 @@ export class BiblioRecordResolver {
         }
 
         if (json.author && json.author.length > 0) {
-            let orcIds = [];
-            json.author.forEach( (author) => {
+            let orcIds : string[] = [];
+            json.author.forEach( (author: any) => {
                 if (author.orcid_id) {
                     orcIds.push('https://orcid.org/' + author.orcid_id);
                 }
@@ -76,9 +75,9 @@ export class BiblioRecordResolver {
         }
 
         if (json.affiliation && json.affiliation.length > 0) {
-            let aff = [];
+            let aff : string[] = [];
 
-            json.affiliation.forEach( (affiliation) => {
+            json.affiliation.forEach( (affiliation: any) => {
                 if (affiliation.ugent_id) {
                     aff.push( 'https://biblio.ugent.be/organization/' + affiliation.ugent_id);
                 }

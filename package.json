@@ -1,12 +1,22 @@
 {
-  "name": "oai-bridge",
+  "name": "oaibridge",
   "version": "0.0.1",
+  "lsd:module": true,
   "description": "A OAI-PMH to Event Notifications bridge",
-  "main": "src/index.js",
-  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "components",
+    "dist/**/*.d.ts",
+    "dist/**/*.js",
+    "dist/**/*.js.map"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "demo:oai": "node src/index.js",
+    "build": "npm run build:ts && npm run build:components",
+    "build:ts": "npm exec tsc",
+    "build:components": "componentsjs-generator -s dist -r oaib13",
+    "prepare": "npm run build",
+    "demo:oai": "node dist/client.js https://biblio.ugent.be/oai",
     "demo:orch-demo": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/demo.n3",
     "demo:orch-ldn": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/sendNotification.n3",
     "demo:pol": "npx pol --single out/1.ttl --info --keep",
@@ -22,12 +32,20 @@
   "author": "Patrick Hochstenbach",
   "license": "MIT",
   "dependencies": {
+    "commander": "^10.0.1",
+    "componentsjs": "^5.3.2",
+    "isomorphic-fetch": "^3.0.0",
     "koreografeye": "^0.2.3",
     "log4js": "^6.9.1",
     "md5": "^2.3.0",
     "n3": "^1.16.4",
-    "node-fetch": "^3.3.1",
     "oai-pmh": "^2.0.3",
     "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "@types/md5": "^2.3.2",
+    "@types/n3": "^1.10.4",
+    "componentsjs-generator": "^3.1.0",
+    "typescript": "^5.0.4"
   }
 }
