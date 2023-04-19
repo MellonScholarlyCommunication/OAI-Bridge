@@ -71,7 +71,7 @@ export class EventMaker {
                 writer.addQuad(
                     quad(
                         namedNode(info.id),
-                        namedNode(this.prefix_expand('schema:name')),
+                        namedNode(this.prefix_expand('as:summary')),
                         literal(info.title)
                     )
                 );
@@ -162,7 +162,7 @@ export class EventMaker {
                     quad(
                         namedNode(info.id),
                         namedNode(this.prefix_expand('dbpedia:isPeerReviewed')),
-                        namedNode(info.peer_reviewed)
+                        literal(info.peer_reviewed)
                     )
                 );
             }
