@@ -74,33 +74,29 @@ export class Harvester {
 
     private async processor(maker: EventMaker, resolver: AbstractRecordResolver, rec: any) {
         let id       = rec['identifier'];
-        let status   = rec['$'].status;
+
         let res_id   = await resolver.resolve(id);
-        
-        if (status == 'exists') {
-            let metadata = await resolver.metadata(res_id);
+        let metadata = await resolver.metadata(res_id);
 
-            if (metadata) {
-
-                if (metadata.file) {
-                    if (this.options?.silent) {
-                        this.logger.info(`silent processed ${id}`);
-                    }
-                    else {
-                        let turtle   = await maker.make_turtle(metadata);
-                        let md5str   = md5(JSON.stringify(rec));
-                        let outFile  = `${this.outDir}/${md5str}.ttl`; 
-                        this.logger.info(`generating ${outFile}`);
-                        fs.writeFileSync(outFile,turtle);
-                    }
+        if (metadata) {
+            if (metadata.file) {
+                if (this.options?.silent) {
+                    this.logger.info(`silent processed ${id}`);
                 }
                 else {
-                    this.logger.info(`no file content ${id}`);
+                    let turtle   = await maker.make_turtle(metadata);
+                    let md5str   = md5(JSON.stringify(rec));
+                    let outFile  = `${this.outDir}/${md5str}.ttl`; 
+                    this.logger.info(`generating ${outFile}`);
+                    fs.writeFileSync(outFile,turtle);
                 }
             }
             else {
-                this.logger.debug(`no metadata generated to output`);
+                this.logger.info(`no file content ${id}`);
             }
+        }
+        else {
+            this.logger.debug(`no metadata generated to output`);
         }
     }
 

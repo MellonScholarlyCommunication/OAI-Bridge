@@ -40,63 +40,74 @@ export class ListIdentifiersWatcher extends Watcher {
     async watch() {
         const db = new sqlite3.Database(this.databaseFile);
 
-        const oaiPmh = new oai.OaiPmh(this.baseUrl);
-        const identifierIterator = oaiPmh.listIdentifiers(this.options);
-
         await this.create_table(db);
 
-        let record_number = 0;
-        let record_number_not_deleted = 0;
+        try {
+            const oaiPmh = new oai.OaiPmh(this.baseUrl);
+            const identifierIterator = oaiPmh.listIdentifiers(this.options);
 
-        for await (const identifier of identifierIterator) {
+            let record_number = 0;
+            let record_number_not_deleted = 0;
 
-            if (this.runopts?.max_records && record_number >= this.runopts.max_records) {
-                break;
-            }
+            for await (const identifier of identifierIterator) {
 
-            if (this.runopts?.max_records_not_deleted && record_number_not_deleted >= this.runopts.max_records_not_deleted) {
-                break;
-            }
+                if (this.runopts?.max_records && record_number >= this.runopts.max_records) {
+                    break;
+                }
 
-            const existingRow = await this.exists_record(db,identifier);
-   
-            if (identifier['$'] && identifier['$']['status']) {
-                // We are okay
-            }
-            else {
-                identifier['$'] = { status: 'exists'};
-            }
+                if (this.runopts?.max_records_not_deleted && record_number_not_deleted >= this.runopts.max_records_not_deleted) {
+                    break;
+                }
 
-            if (existingRow) {
-                if (existingRow.datestamp !== identifier.datestamp) {
-                    await this.update_record(db,identifier);
+                const existingRow = await this.exists_record(db,identifier);
+    
+                if (identifier['$'] && identifier['$']['status']) {
+                    // We are okay
+                }
+                else {
+                    identifier['$'] = { status: 'exists'};
+                }
+
+                if (existingRow) {
+                    if (existingRow.datestamp !== identifier.datestamp) {
+                        await this.update_record(db,identifier);
+
+                        if (identifier['$'].status === 'deleted') {
+                            this.emit('deleted',identifier);
+                        }
+                        else {
+                            this.emit('update',identifier);
+                            record_number_not_deleted++;
+                        }
+
+                        record_number++;
+                    }
+                    else {
+                        this.emit('old',identifier);
+                    }
+                }
+                else {
+                    await this.insert_record(db,identifier);
 
                     if (identifier['$'].status === 'deleted') {
                         this.emit('deleted',identifier);
                     }
                     else {
-                        this.emit('update',identifier);
+                        this.emit('new',identifier);
                         record_number_not_deleted++;
                     }
 
                     record_number++;
                 }
-                else {
-                    this.emit('old',identifier);
-                }
+            }
+        }
+        catch (e: any) {
+            console.log(e.code);
+            if (e.code === "noRecordsMatch") {
+                this.logger.info('no records match');
             }
             else {
-                await this.insert_record(db,identifier);
-
-                if (identifier['$'].status === 'deleted') {
-                    this.emit('deleted',identifier);
-                }
-                else {
-                    this.emit('new',identifier);
-                    record_number_not_deleted++;
-                }
-
-                record_number++;
+                this.logger.error(e);
             }
         }
 

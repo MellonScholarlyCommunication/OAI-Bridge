@@ -9,6 +9,7 @@ program.version('0.0.2')
        .option('-m,--metadataPrefix <prefix>', 'harvestable metadataPrefix', 'oai_dc')
        .option('-s,--setSpec <set>', 'harvestable set')
        .option('-t,--offset <number>', 'harvesting offset in days', parseInt)
+       .option('-tt,--until <number>', 'harvesting offset in days', parseInt)
        .option('-o,--outdir <directory>','output directory', './in')
        .option('--silent','do not produce output, only run the incremental harvester', false)
        .option('--max <number>','do not produce more than max number of records', parseInt)
@@ -45,9 +46,19 @@ async function main() {
 
     let oai_options : any = { from : from };
 
+    if (opts.until) {
+        let d = new Date();
+        d.setDate(d.getDate() - (opts.until));
+        let until = d.toISOString().replaceAll(/\.\d+Z$/g,'Z'); 
+
+        oai_options.until = until;
+    }
+
     if (opts.setSpec) {
         oai_options['set'] = opts.setSpec;
     }
+
+    logger.info(`using oai_opts %s`, oai_options);
 
     const harvester = new Harvester(
                             logger,
