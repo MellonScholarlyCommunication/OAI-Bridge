@@ -3,15 +3,16 @@ import n3 from 'n3';
 const { DataFactory } = n3;
 const { namedNode, literal, quad} = DataFactory;
 
-const AS_TYPE     = 'https://www.w3.org/ns/activitystreams#';
-const LDP_TYPE    = 'http://www.w3.org/ns/ldp#';
-const XSD_TYPE    = 'http://www.w3.org/2001/XMLSchema#';
-const EVENT_TYPE  = 'http://example.org/event#';
-const VCARD_TYPE  = 'http://www.w3.org/2006/vcard/ns#';
-const SCHEMA_TYPE = 'https://schema.org/';
-const IETF_TYPE   = 'http://www.iana.org/assignments/relation/';
-const RDF_TYPE    = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
-const DCT_TYPE    = 'http://purl.org/dc/terms/';
+const AS_TYPE      = 'https://www.w3.org/ns/activitystreams#';
+const LDP_TYPE     = 'http://www.w3.org/ns/ldp#';
+const XSD_TYPE     = 'http://www.w3.org/2001/XMLSchema#';
+const EVENT_TYPE   = 'http://example.org/event#';
+const VCARD_TYPE   = 'http://www.w3.org/2006/vcard/ns#';
+const SCHEMA_TYPE  = 'https://schema.org/';
+const IETF_TYPE    = 'http://www.iana.org/assignments/relation/';
+const RDF_TYPE     = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
+const DCT_TYPE     = 'http://purl.org/dc/terms/';
+const DBPEDIA_TYPE = 'https://dbpedia.org/ontology/';
 
 export class EventMaker {
 
@@ -42,6 +43,9 @@ export class EventMaker {
         }
         if (str.startsWith('dct:')) {
             return str.replace('dct:',DCT_TYPE);
+        }
+        if (str.startsWith('dbpedia:')) {
+            return str.replace('dbpedia:', DBPEDIA_TYPE);
         }
         return str;
     }
@@ -153,6 +157,16 @@ export class EventMaker {
                 });
             }
             
+            if (typeof info.peer_reviewed !== 'undefined') {
+                writer.addQuad(
+                    quad(
+                        namedNode(info.id),
+                        namedNode(this.prefix_expand('dbpedia:isPeerReviewed')),
+                        namedNode(info.peer_reviewed)
+                    )
+                );
+            }
+
             writer.end((error: any, result: string) => {
                 if (error) {
                     reject(error)

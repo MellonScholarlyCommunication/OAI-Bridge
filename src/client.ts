@@ -8,8 +8,10 @@ program.version('0.0.2')
        .option('-d,--database <file>', 'database cache file', './cache.db')
        .option('-m,--metadataPrefix <prefix>', 'harvestable metadataPrefix', 'oai_dc')
        .option('-s,--setSpec <set>', 'harvestable set')
+       .option('-f,--from <from>', 'harvesting offset as string')
+       .option('-u,--until <until>', 'harvesting offset as string')
        .option('-t,--offset <number>', 'harvesting offset in days', parseInt)
-       .option('-tt,--until <number>', 'harvesting offset in days', parseInt)
+       .option('-tt,--offset2 <number>', 'harvesting offset in days', parseInt)
        .option('-o,--outdir <directory>','output directory', './in')
        .option('--silent','do not produce output, only run the incremental harvester', false)
        .option('--max <number>','do not produce more than max number of records', parseInt)
@@ -42,16 +44,24 @@ async function main() {
 
     let d = new Date();
     d.setDate(d.getDate() - (opts.offset || 1));
-    let from = d.toISOString().replaceAll(/\.\d+Z$/g,'Z');
+    let from = d.toISOString().replaceAll(/T.*$/g,'');
 
     let oai_options : any = { from : from };
 
-    if (opts.until) {
+    if (opts.offset2) {
         let d = new Date();
-        d.setDate(d.getDate() - (opts.until));
-        let until = d.toISOString().replaceAll(/\.\d+Z$/g,'Z'); 
+        d.setDate(d.getDate() - (opts.offset2));
+        let until = d.toISOString().replaceAll(/T.*$/g,''); 
 
         oai_options.until = until;
+    }
+
+    if (opts.from) {
+        oai_options.from = opts.from;
+    }
+
+    if (opts.until) {
+        oai_options.until = opts.until;
     }
 
     if (opts.setSpec) {

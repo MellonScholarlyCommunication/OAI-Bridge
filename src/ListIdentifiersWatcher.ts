@@ -102,7 +102,6 @@ export class ListIdentifiersWatcher extends Watcher {
             }
         }
         catch (e: any) {
-            console.log(e.code);
             if (e.code === "noRecordsMatch") {
                 this.logger.info('no records match');
             }
