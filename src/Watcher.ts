@@ -40,17 +40,18 @@ export class Watcher extends EventEmitter {
     }
 
     async insert_record(db: sqlite3.Database, identifier: any) {
-        this.logger.info(`inserting ${identifier.identifier}`);
+        let status    = 'new';
+
+        if (identifier['$'] && identifier['$']['status']) {
+            status = identifier['$']['status'];
+        }
+
+        this.logger.info(`inserting ${identifier.identifier} (${status})`);
 
         let stmt = db.prepare("INSERT INTO records VALUES(?, ?, ?)");
         
         let id        = identifier['identifier'];
-        let status    = 'new';
         let datestamp = identifier['datestamp'];
-    
-        if (identifier['$'] && identifier['$']['status']) {
-            status = identifier['$']['status'];
-        }
     
         stmt.run(id,status,datestamp,
             (err: any) => {
@@ -62,17 +63,18 @@ export class Watcher extends EventEmitter {
     }
     
     async update_record(db: sqlite3.Database, identifier: any) {
-        this.logger.info(`updating ${identifier.identifier}`);
+        let status    = 'new';
+
+        if (identifier['$'] && identifier['$']['status']) {
+            status = identifier['$']['status'];
+        }
+
+        this.logger.info(`updating ${identifier.identifier} (${status})`);
 
         let stmt = db.prepare("UPDATE records SET status = ? , datestamp = ? WHERE id = ?");
     
         let id        = identifier['identifier'];
-        let status    = 'new';
         let datestamp = identifier['datestamp'];
-    
-        if (identifier['$'] && identifier['$']['status']) {
-            status = identifier['$']['status'];
-        }
     
         stmt.run(status,datestamp,id,
             (err: any) => {

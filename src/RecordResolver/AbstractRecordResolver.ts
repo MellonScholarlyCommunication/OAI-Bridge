@@ -15,6 +15,7 @@ export interface IRecordType {
     doi? : string ,
     authors? : string[] ,
     affiliation? : string[] ,
+    peer_reviewed? : boolean ,
     file? : IFileType[]
 };
 

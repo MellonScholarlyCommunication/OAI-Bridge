@@ -36,13 +36,13 @@ export class HalRecordResolver extends AbstractRecordResolver {
 
         let record : any = { id: url };
 
-        // if (hal.title_s) {
-        //     record.title = hal.title_s;
-        // }
+        if (hal.title_s) {
+            record.title = hal.title_s;
+        }
 
-        // if (hal.releasedDateY_i) {
-        //     record.year = hal.releasedDateY_i;
-        // }
+        if (hal.releasedDateY_i) {
+            record.year = hal.releasedDateY_i;
+        }
 
         if (hal.doiId_s) {
             record.doi = hal.doiId_s;
@@ -78,15 +78,15 @@ export class HalRecordResolver extends AbstractRecordResolver {
             }
         }
 
-        // if (hal.authORCIDIdExt_s && hal.authORCIDIdExt_s.length > 0) {
-        //     let orcIds : string[] = [];
+        if (hal.authORCIDIdExt_s && hal.authORCIDIdExt_s.length > 0) {
+            let orcIds : string[] = [];
 
-        //     hal.authORCIDIdExt_s.forEach( (author: string) => {
-        //         orcIds.push('https://orcid.org/' + author);
-        //     });
+            hal.authORCIDIdExt_s.forEach( (author: string) => {
+                orcIds.push('https://orcid.org/' + author);
+            });
 
-        //     record.authors = orcIds;
-        // }
+            record.authors = orcIds;
+        }
 
         return record;
     }

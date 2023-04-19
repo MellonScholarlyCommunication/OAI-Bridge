@@ -16,7 +16,7 @@
     "build:ts": "npm exec tsc",
     "build:components": "componentsjs-generator -s dist -r oaib13",
     "prepare": "npm run build",
-    "oai:biblio": "node dist/client.js --info --max 10 https://biblio.ugent.be/oai",
+    "oai:biblio": "node dist/client.js --info --max 10 --setSpec 'allFtxt' https://biblio.ugent.be/oai",
     "oai:hal": "node dist/client.js --info --max 10 --setSpec 'collection:SCPO_OA' https://api.archives-ouvertes.fr/oai/hal/",
     "demo:orch-demo": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/demo.n3",
     "demo:orch-ldn": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/sendNotification.n3",

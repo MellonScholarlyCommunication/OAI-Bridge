@@ -12,6 +12,7 @@ program.version('0.0.2')
        .option('-o,--outdir <directory>','output directory', './in')
        .option('--silent','do not produce output, only run the incremental harvester', false)
        .option('--max <number>','do not produce more than max number of records', parseInt)
+       .option('--max-no-del <number>','do not produce more than max number of non-deleted records', parseInt)
        .option('--info','output debugging messages')
        .option('--debug','output more debugging messages')
        .option('--trace','output much more debugging messages');
@@ -58,8 +59,10 @@ async function main() {
                             opts.config ,
                             {
                                 silent: opts.silent ,
-                                max: opts.max
+                                max_records: opts.max ,
+                                max_records_not_deleted : opts.maxNoDel
                             }
                         );
+
     await harvester.harvest();
 }

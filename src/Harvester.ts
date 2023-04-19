@@ -2,10 +2,16 @@ import log4js from 'log4js';
 import path from 'path';
 import fs from 'fs';
 import md5 from 'md5';
-import { ListIdentifiersWatcher } from "./ListIdentifiersWatcher.js";
+import { IListIdentifiersRunOptions, ListIdentifiersWatcher } from "./ListIdentifiersWatcher.js";
 import { AbstractRecordResolver } from './RecordResolver/AbstractRecordResolver';
 import { EventMaker } from "./EventMaker.js";
 import { ComponentsManager } from 'componentsjs';
+
+export interface IHarvesterRunOptions {
+    silent?: boolean,
+    max_records?: number,
+    max_records_not_deleted?: number
+};
 
 export class Harvester {
     logger: log4js.Logger;
@@ -15,7 +21,7 @@ export class Harvester {
     oai_options: any;
     outDir: string;
     config: string;
-    options: any;
+    options: IHarvesterRunOptions;
 
     constructor(
         logger: log4js.Logger ,
@@ -25,7 +31,7 @@ export class Harvester {
         oai_options: any ,
         outDir: string,
         config: string, 
-        options?: any
+        options?: IHarvesterRunOptions
     ) {
         this.logger = logger;
         this.databaseFile   = databaseFile;
@@ -34,7 +40,13 @@ export class Harvester {
         this.oai_options    = oai_options;
         this.outDir         = outDir;
         this.config         = config;
-        this.options        = options;
+
+        if (options) {
+            this.options = options;
+        }
+        else {
+            this.options = {} as IHarvesterRunOptions;
+        }
     }
 
     public async harvest() : Promise<void> {
@@ -48,7 +60,10 @@ export class Harvester {
             this.baseUrl,
             this.metadataPrefix,
             this.oai_options,
-            this.options.max
+            { 
+                max_records : this.options.max_records ,
+                max_records_not_deleted: this.options.max_records_not_deleted
+            } as IListIdentifiersRunOptions
         );
 
         watcher.on('new', async (rec) => { this.processor(maker,resolver,rec) });
@@ -61,7 +76,7 @@ export class Harvester {
         let id       = rec['identifier'];
         let status   = rec['$'].status;
         let res_id   = await resolver.resolve(id);
-
+        
         if (status == 'exists') {
             let metadata = await resolver.metadata(res_id);
 
@@ -80,7 +95,7 @@ export class Harvester {
                     }
                 }
                 else {
-                    this.logger.debug(`no file content`);
+                    this.logger.info(`no file content ${id}`);
                 }
             }
             else {
