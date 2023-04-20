@@ -68,7 +68,7 @@ export class ListIdentifiersWatcher extends Watcher {
                     identifier['$'] = { status: 'exists'};
                 }
 
-                if (existingRow) {
+                if (existingRow !== undefined) {
                     if (existingRow.datestamp !== identifier.datestamp) {
                         await this.update_record(db,identifier);
 

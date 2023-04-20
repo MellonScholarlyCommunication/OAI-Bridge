@@ -25,14 +25,16 @@ export class Watcher extends EventEmitter {
         });
     }
 
-    async exists_record(db: sqlite3.Database, identifier: any) : Promise<any> {
-        this.logger.info(`checking ${identifier.identifier} exists`);
+    async exists_record(db: sqlite3.Database, identifier: any) : Promise<any | undefined> {
         return new Promise( (resolve, reject) => {
             db.get("SELECT * from records where id = ?",identifier.identifier, (err,row) => {
                 if (err) {
-                    reject(err);
+                    this.logger.info(`checking ${identifier.identifier} exists (no)`);
+                    reject(undefined);
                 }
                 else {
+                    this.logger.info(`checking ${identifier.identifier} exists (yes)`);
+                    this.logger.debug(row);
                     resolve(row);
                 }
             });

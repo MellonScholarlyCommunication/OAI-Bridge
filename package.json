@@ -30,7 +30,7 @@
     "notifications",
     "ldn"
   ],
-  "author": "Patrick Hochstenbach",
+  "author": "Patrick Hochstenbach <Patrick.Hochstenbach@UGent.be>",
   "license": "MIT",
   "dependencies": {
     "@xmldom/xmldom": "^0.8.7",
