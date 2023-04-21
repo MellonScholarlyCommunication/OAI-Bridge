@@ -23,12 +23,12 @@
     ex:MySendNotificationDemo pol:policy [
         a fno:Execution ;
         fno:executes ex:sendNotification ;
-        ex:to <https://ldninbox.antleaf.com/inbox> ;
+        ex:to <http://localhost:3000/inbox> ;
         ex:notification [
                 a as:Announce ;
                 as:actor     <http://patrickhochstenbach.net/profile/card#me> ;
                 as:origin    <http://patrickhochstenbach.net/orchestrator/profile/card#me> ;
-                as:target    <https://ldninbox.antleaf.com/inbox> ;
+                as:target    <http://localhost:3000/profile/card#me> ;
                 as:object    ?id
         ]
     ] .
@@ -40,9 +40,9 @@
     a as:Person ;
     as:name "Patrick Hochstenbach".
 
-<https://ldninbox.antleaf.com/inbox>
+<http://localhost:3000/profile/card#me>
     a as:Person ;
-    as:name "Paul Walk".
+    as:name "Freddy Test".
 
 <http://patrickhochstenbach.net/orchestrator/profile/card#me> 
     a as:Service ;
