@@ -21,7 +21,7 @@
     "orch": "npx orch --info --in in --out out --err err rules/sendNotification.n3",
     "demo:orch-demo": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/demo.n3",
     "demo:orch-ldn": "npx orch --info --single demo/1.ttl --keep --out out --err err rules/sendNotification.n3",
-    "pol": "npx pol --info --in out --keep",
+    "pol": "npx pol --info --in out",
     "demo:pol": "npx pol --info --single out/1.ttl --keep",
     "clean": "rm in/* ; rm out/*",
     "clean:real": "npm run clean ; rm ./cache.db"

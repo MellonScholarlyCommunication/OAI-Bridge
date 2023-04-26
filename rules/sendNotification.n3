@@ -26,9 +26,8 @@
         ex:to <http://localhost:3000/inbox> ;
         ex:notification [
                 a as:Announce ;
-                as:actor     <http://patrickhochstenbach.net/profile/card#me> ;
-                as:origin    <http://patrickhochstenbach.net/orchestrator/profile/card#me> ;
-                as:target    <http://localhost:3000/profile/card#me> ;
+                as:actor     <https://biblio.ugent.be/profile/card#me>  ;
+                as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
                 as:object    ?id
         ]
     ] .
@@ -36,14 +35,10 @@
 
 # Some metadata about the actors involved in this communication
 
-<http://patrickhochstenbach.net/profile/card#me> 
-    a as:Person ;
-    as:name "Patrick Hochstenbach".
-
-<http://localhost:3000/profile/card#me>
-    a as:Person ;
-    as:name "Freddy Test".
-
-<http://patrickhochstenbach.net/orchestrator/profile/card#me> 
+<https://biblio.ugent.be/profile/card#me> 
     a as:Service ;
-    as:name "Pat's Koreografeye Orchestrator Demo".
+    as:name "Ghent University Academic Bibliography" .
+
+<https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> 
+    a as:Service ;
+    as:name "OAI-Bridge Demo Service" .
