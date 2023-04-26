@@ -9,6 +9,11 @@ created in the `./in` directory. These Event Notification fragments can then be 
 processed in sending out Event Notifications, creating Event Logs and sending Mastodon 
 toots using the [Koreografeye](https://github.com/eyereasoner/Koreografeye) project.
 
+
+# Node
+
+v16.13.0
+
 # Install
 
 ```
