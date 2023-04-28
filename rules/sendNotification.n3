@@ -29,7 +29,7 @@
         fno:executes ex:sendNotification ;
         ex:to <http://localhost:3000/service/inbox> ;
         ex:notification [
-                a as:Offer ;
+                a as:Offer , ex:CitationExtraction ;
                 as:actor     <https://biblio.ugent.be/profile/card#me>  ;
                 as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
                 as:object    ?url ;
