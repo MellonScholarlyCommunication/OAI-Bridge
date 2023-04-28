@@ -1,8 +1,10 @@
 @prefix ex:   <http://example.org/> .
 @prefix as:   <https://www.w3.org/ns/activitystreams#> .
-@prefix sorg: <https://schema.org/>.
+@prefix ldp:  <https://www.w3.org/ns/ldp#> .
+@prefix sorg: <https://schema.org/> .
 @prefix pol:  <https://www.example.org/ns/policy#> .
 @prefix fno:  <https://w3id.org/function/ontology#> .
+@prefix ore:  <http://www.openarchives.org/ore/terms/> .
 @prefix string: <http://www.w3.org/2000/10/swap/string#> .
 
 {
@@ -14,6 +16,8 @@
 
     # This about page should also have a url
     ?id as:url ?url .
+
+    ( ?id ".rdf" ) string:concatenation ?isDescribedBy .
 }
 =>
 {
@@ -23,22 +27,31 @@
     ex:MySendNotificationDemo pol:policy [
         a fno:Execution ;
         fno:executes ex:sendNotification ;
-        ex:to <http://localhost:3000/inbox> ;
+        ex:to <http://localhost:3000/service/inbox> ;
         ex:notification [
-                a as:Announce ;
+                a as:Offer ;
                 as:actor     <https://biblio.ugent.be/profile/card#me>  ;
                 as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
-                as:object    ?id
+                as:object    ?url ;
+                as:target    <https://localhost:3000/service/profile/card#me>
         ]
     ] .
+
+    ?url ore:isDescribedBy ?isDescribedBy .
 }.
 
 # Some metadata about the actors involved in this communication
 
 <https://biblio.ugent.be/profile/card#me> 
     a as:Service ;
-    as:name "Ghent University Academic Bibliography" .
+    as:name "Ghent University Academic Bibliography" ;
+    ldp:inbox <https://localhost:3000/repository/inbox> .
 
 <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> 
     a as:Service ;
     as:name "OAI-Bridge Demo Service" .
+
+<https://localhost:3000/service/profile/card#me> 
+    a as:Service ;
+    as:name "Citation Extraction Service" ;
+    ldp:inbox <https://localhost:3000/service/inbox> .

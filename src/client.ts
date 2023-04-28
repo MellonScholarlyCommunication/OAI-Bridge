@@ -2,7 +2,7 @@ import log4js from 'log4js';
 import { Harvester } from './Harvester.js';
 import { program } from 'commander';
 
-program.version('0.0.2')
+program.version('0.1.0')
        .argument('<baseurl>')
        .option('-c,--config <config>', 'components plugin file', './config.jsonld')
        .option('-d,--database <file>', 'database cache file', './cache.db')
