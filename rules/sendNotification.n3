@@ -33,7 +33,7 @@
                 as:actor     <https://biblio.ugent.be/profile/card#me>  ;
                 as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
                 as:object    ?url ;
-                as:target    <https://localhost:3000/service/profile/card#me>
+                as:target    <http://localhost:3000/service/profile/card#me>
         ]
     ] .
 
@@ -45,13 +45,13 @@
 <https://biblio.ugent.be/profile/card#me> 
     a as:Service ;
     as:name "Ghent University Academic Bibliography" ;
-    ldp:inbox <https://localhost:3000/repository/inbox> .
+    ldp:inbox <http://localhost:3000/repository/inbox> .
 
 <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> 
     a as:Service ;
     as:name "OAI-Bridge Demo Service" .
 
-<https://localhost:3000/service/profile/card#me> 
+<http://localhost:3000/service/profile/card#me> 
     a as:Service ;
     as:name "Citation Extraction Service" ;
-    ldp:inbox <https://localhost:3000/service/inbox> .
+    ldp:inbox <http://localhost:3000/service/inbox> .
