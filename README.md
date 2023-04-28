@@ -16,8 +16,8 @@ v16.13.0
 ## Install
 
 ```
-npm install
-npm install -g community-solid-server
+yarn install
+yarn global add community-solid-server
 ```
 
 ## Demo
@@ -25,13 +25,13 @@ npm install -g community-solid-server
 Start a Solid CSS server which provides a local inbox
 
 ```
-bin/solid.sh
+yarn solid
 ```
 
 Remove all data from `./in` and delete the cache file `./biblio.db`.
 
 ```
-npm run clean:real
+yarn clean:real
 ```
 
 Harvest some OAI data from an institutional repository (incremental harvesting). By 
@@ -40,18 +40,22 @@ full text. You may want to run this command several times when a repository has 
 many recent uploaded/changed records.
 
 ```
-npm run oai:biblio
+yarn oai:biblio
 ```
 
 Run an orchestrator on a the files in `in/` requesting processing it with the 
 `rules/sendNotification.n3` rule file. This rule request sending a notification to an
 LDN inbox.
 
+```
+yarn orch
+```
+
 The previous step created files in `out` file which need to be executed. In this step the
 notifiction will be sent. 
 
 ```
-npm run pol
+yarn pol
 ```
 
 Visit http://localhost:3000/service/inbox/ and check the latest incoming notification.

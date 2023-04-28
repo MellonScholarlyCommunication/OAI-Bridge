@@ -9,12 +9,14 @@
 
 {
     # We need an about page
-    ?id a sorg:AboutPage .
+    ?id a as:Announce .
+    # .. of type ex:CitationExtraction
+    ?id a ex:CitationExtraction .
 
     # This about page should also have a url
-    ?id as:url ?url .
-
-    ( ?id ".rdf" ) string:concatenation ?isDescribedBy .
+    ?id as:object ?object .
+    # .. of type ex:ParsedCitationDocument
+    ?object a ex:ParsedCitationDocument.
 }
 =>
 {
@@ -24,17 +26,15 @@
     ex:MySendNotificationDemo pol:policy [
         a fno:Execution ;
         fno:executes ex:sendNotification ;
-        ex:to <http://localhost:3000/ces/inbox> ;
+        ex:to <http://localhost:3000/ces-relay/inbox> ;
         ex:notification [
-                a as:Offer , ex:CitationExtraction ;
+                a as:Offer , ex:CitationRelay ;
                 as:actor     <https://biblio.ugent.be/profile/card#me>  ;
                 as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
-                as:object    ?url ;
-                as:target    <http://localhost:3000/ces/profile/card#me>
+                as:object    ?object ;
+                as:target    <http://localhost:3000/ces-relay/profile/card#me>
         ]
     ] .
-
-    ?url ore:isDescribedBy ?isDescribedBy .
 }.
 
 # Some metadata about the actors involved in this communication
@@ -48,7 +48,7 @@
     a as:Service ;
     as:name "OAI-Bridge Demo Service" .
 
-<http://localhost:3000/ces/profile/card#me> 
+<http://localhost:3000/ces-relay/profile/card#me> 
     a as:Service ;
     as:name "Citation Extraction Service" ;
-    ldp:inbox <http://localhost:3000/ces/inbox> .
+    ldp:inbox <http://localhost:3000/ces-relay/inbox> .

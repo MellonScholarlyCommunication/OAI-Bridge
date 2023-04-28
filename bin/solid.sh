@@ -8,10 +8,16 @@ fi
 
 cd solid
 
-if [ ! -d service/inbox ]; then
-    mkdir -p service/inbox
+if [ ! -d ces/inbox ]; then
+    mkdir -p ces/inbox
 else
-    rm service/inbox/*
+    rm ces/inbox/*
+fi
+
+if [ ! -d ces-relay/inbox ]; then
+    mkdir -p ces-relay/inbox
+else
+    rm ces-relay/inbox/*
 fi
 
 if [ ! -d repository/inbox ]; then

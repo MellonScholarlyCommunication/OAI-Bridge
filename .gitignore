@@ -1,3 +1,4 @@
+.DS_Store
 componentsjs-error-state.json
 in/**
 err/**
@@ -9,3 +10,6 @@ biblio.db
 cache.db
 local/*
 solid/**
+watch-in/**
+watch-out/**
+watch-err/**
