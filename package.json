@@ -24,8 +24,8 @@
     "pol": "npx pol --info --in out",
     "pol:demo": "npx pol --info --single out/1.ttl --keep",
     "watch": "bin/watch.sh http://localhost:3000/repository/inbox/",
-    "orch:watch": "npx orch --info --keep --in watch-in --out watch-out --err watch-err rules/offerCitationRelay.n3",
-    "pol:watch": "npx pol --info --keep --in watch-out",
+    "orch:watch": "npx orch --info --in watch-in --out watch-out --err watch-err rules/offerCitationRelay.n3",
+    "pol:watch": "npx pol --info --in watch-out",
     "clean": "rm in/* ; rm out/*",
     "clean:real": "yarn clean ; rm ./cache.db"
   },
