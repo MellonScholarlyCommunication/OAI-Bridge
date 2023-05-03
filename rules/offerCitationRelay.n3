@@ -1,6 +1,6 @@
 @prefix ex:   <http://example.org/> .
 @prefix as:   <https://www.w3.org/ns/activitystreams#> .
-@prefix ldp:  <https://www.w3.org/ns/ldp#> .
+@prefix ldp:  <http://www.w3.org/ns/ldp#> .
 @prefix sorg: <https://schema.org/> .
 @prefix pol:  <https://www.example.org/ns/policy#> .
 @prefix fno:  <https://w3id.org/function/ontology#> .
