@@ -6,6 +6,7 @@
 @prefix fno:  <https://w3id.org/function/ontology#> .
 @prefix ore:  <http://www.openarchives.org/ore/terms/> .
 @prefix string: <http://www.w3.org/2000/10/swap/string#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 {
     # We need an about page
@@ -14,7 +15,9 @@
     # This about page should also have a url
     ?id as:url ?url .
 
-    ( ?id ".rdf" ) string:concatenation ?isDescribedBy .
+    ?id log:uri ?id_str .
+    ( ?id_str ".rdf" ) string:concatenation ?isDescribedByStr .
+    ?isDescribedBy log:uri ?isDescribedByStr .
 }
 =>
 {
