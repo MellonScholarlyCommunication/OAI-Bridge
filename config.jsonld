@@ -36,6 +36,10 @@
       {
         "@id": "https://api.archives-ouvertes.fr/oai/hal/",
         "@type": "HalRecordResolver"
+      },
+      {
+        "@id": "https://repository.ubn.ru.nl/oai/request",
+        "@type": "RadboudRecordResolver"
       }
     ]
 }
