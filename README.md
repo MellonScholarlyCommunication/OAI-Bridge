@@ -3,11 +3,11 @@
 A [OAI-PMH](https://www.openarchives.org/pmh/) to [Event Notifications](https://www.eventnotifications.net).
 
 This project provides an implementation of a OAI-PMH harvest to Event Notification bridge.
-The code supports incremental harvesting of a OAI endpoint (https://biblio.ugent.be in our
+The code supports incremental harvesting of a OAI endpoint (https://repository.ubn.ru.nl in our
 example). For each new or updated OAI record a new Event Notification fragment will be 
-created in the `./in` directory. These Event Notification fragments can then be further
-processed in sending out Event Notifications, creating Event Logs and sending Mastodon 
-toots using the [Koreografeye](https://github.com/eyereasoner/Koreografeye) project.
+created in the `./in` directory. These Event Notification fragments are then offered to
+a CitationExtractionService as an `as:Offer`. See the CitationExtractionService at the
+end of this document.
 
 ## Node
 
@@ -68,3 +68,4 @@ This code is part of the [Mellon Scholarly Communication](https://knows.idlab.ug
 
 [CitationExtractorService](https://github.com/MellonScholarlyCommunication/CitationExtractorService)
 [CitationRelayService](https://github.com/MellonScholarlyCommunication/CitationRelayService)
+[Koreografeye](https://github.com/eyereasoner/Koreografeye)
