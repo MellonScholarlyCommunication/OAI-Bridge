@@ -39,7 +39,10 @@
       },
       {
         "@id": "https://repository.ubn.ru.nl/oai/request",
-        "@type": "RadboudRecordResolver"
+        "@type": "GetRecordResolver",
+        "baseUrl": "https://repository.ubn.ru.nl/oai/request",
+        "recordUrlPrefix": "https://repository.ubn.ru.nl/handle/",
+        "fileUrlPrefix": "https://repository.ubn.ru.nl//bitstream/handle"
       }
     ]
 }

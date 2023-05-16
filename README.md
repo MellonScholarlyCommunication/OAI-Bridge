@@ -28,7 +28,7 @@ Start a Solid CSS server which provides a local inbox
 yarn solid
 ```
 
-Remove all data from `./in` and delete the cache file `./biblio.db`.
+Remove all data from `./in` and delete the cache file `./cache.db`.
 
 ```
 yarn clean:real
@@ -60,16 +60,6 @@ yarn pol
 
 Visit http://localhost:3000/service/inbox/ and check the latest incoming notification.
 
-## Customize
-
-Customize the experiment by creating a copy of `rules/sendNotification.n3` and run 
-the `orch` and `pol` commands as:
-
-```
-npx orch --info --in in --out out --err err rules/your-custom-rules.n3
-npx pol --info --in out
-```
-
 ## Project
 
 This code is part of the [Mellon Scholarly Communication](https://knows.idlab.ugent.be/projects/mellon/) project.
@@ -77,3 +67,4 @@ This code is part of the [Mellon Scholarly Communication](https://knows.idlab.ug
 ## See also
 
 [CitationExtractorService](https://github.com/MellonScholarlyCommunication/CitationExtractorService)
+[CitationRelayService](https://github.com/MellonScholarlyCommunication/CitationRelayService)
