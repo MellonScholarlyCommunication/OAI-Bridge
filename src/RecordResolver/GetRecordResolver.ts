@@ -30,6 +30,10 @@ export class GetRecordResolver extends AbstractRecordResolver {
 
         const data = await oaiPmh.getRecord(oai_id, this.metadataPrefix);
 
+        const datestamp  = data.header.datestamp;
+
+        this.logger.info(`datestamp ${datestamp}`);
+
         let record : any = { id: oai_id };
 
         const dc = data.metadata['oai_dc:dc'];
