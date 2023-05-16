@@ -40,11 +40,11 @@ full text. You may want to run this command several times when a repository has 
 many recent uploaded/changed records.
 
 ```
-yarn oai:biblio
+yarn oai:radboud
 ```
 
 Run an orchestrator on a the files in `in/` requesting processing it with the 
-`rules/sendNotification.n3` rule file. This rule request sending a notification to an
+`rules/offerCitationExtraction.n3` rule file. This rule request sending a notification to an
 LDN inbox.
 
 ```
@@ -58,7 +58,7 @@ notifiction will be sent.
 yarn pol
 ```
 
-Visit http://localhost:3000/service/inbox/ and check the latest incoming notification.
+Visit http://localhost:3000/ces/inbox/ and check the latest incoming notification.
 
 ## Project
 
