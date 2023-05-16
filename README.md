@@ -3,11 +3,11 @@
 A [OAI-PMH](https://www.openarchives.org/pmh/) to [Event Notifications](https://www.eventnotifications.net).
 
 This project provides an implementation of a OAI-PMH harvest to Event Notification bridge.
-The code supports incremental harvesting of a OAI endpoint (https://biblio.ugent.be in our
+The code supports incremental harvesting of a OAI endpoint (https://repository.ubn.ru.nl in our
 example). For each new or updated OAI record a new Event Notification fragment will be 
-created in the `./in` directory. These Event Notification fragments can then be further
-processed in sending out Event Notifications, creating Event Logs and sending Mastodon 
-toots using the [Koreografeye](https://github.com/eyereasoner/Koreografeye) project.
+created in the `./in` directory. These Event Notification fragments are then offered to
+a CitationExtractionService as an `as:Offer`. See the CitationExtractionService at the
+end of this document.
 
 ## Node
 
@@ -28,7 +28,7 @@ Start a Solid CSS server which provides a local inbox
 yarn solid
 ```
 
-Remove all data from `./in` and delete the cache file `./biblio.db`.
+Remove all data from `./in` and delete the cache file `./cache.db`.
 
 ```
 yarn clean:real
@@ -40,11 +40,11 @@ full text. You may want to run this command several times when a repository has 
 many recent uploaded/changed records.
 
 ```
-yarn oai:biblio
+yarn oai:radboud
 ```
 
 Run an orchestrator on a the files in `in/` requesting processing it with the 
-`rules/sendNotification.n3` rule file. This rule request sending a notification to an
+`rules/offerCitationExtraction.n3` rule file. This rule request sending a notification to an
 LDN inbox.
 
 ```
@@ -58,17 +58,7 @@ notifiction will be sent.
 yarn pol
 ```
 
-Visit http://localhost:3000/service/inbox/ and check the latest incoming notification.
-
-## Customize
-
-Customize the experiment by creating a copy of `rules/sendNotification.n3` and run 
-the `orch` and `pol` commands as:
-
-```
-npx orch --info --in in --out out --err err rules/your-custom-rules.n3
-npx pol --info --in out
-```
+Visit http://localhost:3000/ces/inbox/ and check the latest incoming notification.
 
 ## Project
 
@@ -77,3 +67,5 @@ This code is part of the [Mellon Scholarly Communication](https://knows.idlab.ug
 ## See also
 
 [CitationExtractorService](https://github.com/MellonScholarlyCommunication/CitationExtractorService)
+[CitationRelayService](https://github.com/MellonScholarlyCommunication/CitationRelayService)
+[Koreografeye](https://github.com/eyereasoner/Koreografeye)
