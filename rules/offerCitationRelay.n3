@@ -29,7 +29,7 @@
         ex:to <http://localhost:3000/ces-relay/inbox> ;
         ex:notification [
                 a as:Offer , ex:CitationRelay ;
-                as:actor     <https://biblio.ugent.be/profile/card#me>  ;
+                as:actor     <https://repository.ubn.ru.nl/profile/card#me>  ;
                 as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
                 as:object    ?object ;
                 as:target    <http://localhost:3000/ces-relay/profile/card#me>
@@ -39,9 +39,9 @@
 
 # Some metadata about the actors involved in this communication
 
-<https://biblio.ugent.be/profile/card#me> 
+<https://repository.ubn.ru.nl/profile/card#me> 
     a as:Service ;
-    as:name "Ghent University Academic Bibliography" ;
+    as:name "Radboud University Repository" ;
     ldp:inbox <http://localhost:3000/repository/inbox> .
 
 <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> 
