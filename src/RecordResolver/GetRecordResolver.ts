@@ -47,12 +47,11 @@ export class GetRecordResolver extends AbstractRecordResolver {
            }
            if (dc['dc:identifier'] && Array.isArray(dc['dc:identifier'])) {
                 
-                dc['dc:identifier'].forEach( (item) => {
+                dc['dc:identifier'].forEach( async (item) => {
                     if (item.startsWith(this.fileUrlPrefix)) {
                         record.file = {
                             id: item ,
-                            mediaType: item.endsWith('.pdf') ? 
-                                            'application/pdf' : 'unknown/unknown',
+                            mediaType: 'unknown/unknown' ,
                             access: 'open',
                             type: [
                                 'as:Article',
@@ -67,6 +66,28 @@ export class GetRecordResolver extends AbstractRecordResolver {
            } 
         }
 
+        if (record.file) {
+            const mediaType = await this.guessMediaType(record.file.id);
+
+            if (mediaType) {
+                record.file.mediaType = mediaType;
+            }
+            else {
+                record.file.mediaType = 'unknown/unknown';
+            }
+        }
         return record;
+    }
+
+    async guessMediaType(url: string) : Promise<string | null> {
+        const response = await fetch(url , {
+            method: 'HEAD'
+        });
+
+        if (! response.ok) {
+            return null;
+        }
+
+        return response.headers.get('Content-Type');
     }
 }
