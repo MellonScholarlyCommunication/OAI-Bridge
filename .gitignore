@@ -13,3 +13,4 @@ solid/**
 watch-in/**
 watch-out/**
 watch-err/**
+yarn.lock
