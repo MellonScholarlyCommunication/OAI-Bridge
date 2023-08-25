@@ -1,0 +1,28 @@
+<oai:pub.uni-bielefeld.de:1592452> a <https://schema.org/AboutPage>;
+    <https://www.w3.org/ns/activitystreams#summary> "Ion-charge-state chronoscopy of cascaded atomic Auger decay";
+    <https://schema.org/datePublished> "2008";
+    <https://www.w3.org/ns/activitystreams#url> <https://pub.uni-bielefeld.de/download/1592452/2962397>.
+<https://pub.uni-bielefeld.de/download/1592452/2962397> a <https://www.w3.org/ns/activitystreams#Article>, <https://schema.org/ScholarlyArticle>;
+    <https://www.w3.org/ns/activitystreams#mediaType> "application/pdf";
+    <http://purl.org/dc/terms/accessRights> "open";
+    <http://www.openarchives.org/ore/terms/isDescribedBy> <oai:pub.uni-bielefeld.de:1592452.rdf>.
+<https://institutional.repository.edu/profile/card#me> a <https://www.w3.org/ns/activitystreams#Service>;
+    <https://www.w3.org/ns/activitystreams#name> "Institutional Repository";
+    <http://www.w3.org/ns/ldp#inbox> <http://n062-07.wall2.ilabt.iminds.be:3000/inbox/>.
+<https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> a <https://www.w3.org/ns/activitystreams#Service>;
+    <https://www.w3.org/ns/activitystreams#name> "OAI-Bridge Demo Service".
+<http://n062-07.wall2.ilabt.iminds.be:3001/profile/card#me> a <https://www.w3.org/ns/activitystreams#Service>;
+    <https://www.w3.org/ns/activitystreams#name> "Citation Extraction Service";
+    <http://www.w3.org/ns/ldp#inbox> <http://n062-07.wall2.ilabt.iminds.be:3001/inbox/>.
+_:b29_sk_0 a <https://w3id.org/function/ontology#Execution>;
+    <https://w3id.org/function/ontology#executes> <http://example.org/sendNotification>;
+    <http://example.org/to> <http://n062-07.wall2.ilabt.iminds.be:3001/inbox/>;
+    <http://example.org/notification> _:b29_sk_1.
+_:b29_sk_1 a <https://www.w3.org/ns/activitystreams#Offer>, <http://example.org/CitationExtraction>;
+    <https://www.w3.org/ns/activitystreams#actor> <https://institutional.repository.edu/profile/card#me>;
+    <https://www.w3.org/ns/activitystreams#origin> <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me>;
+    <https://www.w3.org/ns/activitystreams#object> <https://pub.uni-bielefeld.de/download/1592452/2962397>;
+    <https://www.w3.org/ns/activitystreams#target> <http://n062-07.wall2.ilabt.iminds.be:3001/profile/card#me>.
+_:b29_e_n3_MINUS_0_1 <https://www.example.org/ns/policy#mainSubject> <oai:pub.uni-bielefeld.de:1592452>.
+_:b29_e_n3_MINUS_1_1 <https://www.example.org/ns/policy#origin> <file:///in/08d01d8a1bf5a345076f3fe7d0fb85bf.ttl>.
+<http://example.org/MySendNotificationDemo> <https://www.example.org/ns/policy#policy> _:b29_sk_0.
