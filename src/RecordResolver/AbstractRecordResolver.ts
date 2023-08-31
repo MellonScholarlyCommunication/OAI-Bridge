@@ -10,6 +10,7 @@ export interface IFileType {
 };
 
 export interface IRecordType {
+    id : string,
     title? : string ,
     year? : string ,
     doi? : string ,

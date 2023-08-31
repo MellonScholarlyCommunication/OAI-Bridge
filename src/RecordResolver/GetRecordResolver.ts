@@ -8,13 +8,17 @@ export class GetRecordResolver extends AbstractRecordResolver {
     baseUrl : string;
     metadataPrefix : string;
     recordUrlPrefix : string;
+    landingPagePrefix : string;
     fileUrlPrefix : string;
 
-    constructor(baseUrl: string, metadataPrefix: string = 'oai_dc', recordUrlPrefix: string, fileUrlPrefix: string) {
+    constructor(
+        baseUrl: string, metadataPrefix: string = 'oai_dc',
+        recordUrlPrefix: string, landingPagePrefix: string, fileUrlPrefix: string) {
         super();
         this.baseUrl = baseUrl;
         this.metadataPrefix  = metadataPrefix;
         this.recordUrlPrefix = recordUrlPrefix;
+        this.landingPagePrefix = landingPagePrefix;
         this.fileUrlPrefix   = fileUrlPrefix;
     }
 
@@ -34,7 +38,7 @@ export class GetRecordResolver extends AbstractRecordResolver {
 
         this.logger.info(`datestamp ${datestamp}`);
 
-        let record : any = { id: oai_id };
+        let record : any = { id: this.landingPagePrefix + oai_id.substring(this.recordUrlPrefix.length) };
 
         const dc = data.metadata['oai_dc:dc'];
 
@@ -59,9 +63,6 @@ export class GetRecordResolver extends AbstractRecordResolver {
                             ] 
                         }
                     }
-                    if (item.startsWith(this.recordUrlPrefix)) {
-                        record.id = item;
-                    }
                 });
            } 
         }
@@ -76,6 +77,9 @@ export class GetRecordResolver extends AbstractRecordResolver {
                 record.file.mediaType = 'unknown/unknown';
             }
         }
+
+        this.logger.debug(record);
+        
         return record;
     }
 
