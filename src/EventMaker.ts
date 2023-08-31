@@ -1,7 +1,7 @@
 import n3 from 'n3';
 
 const { DataFactory } = n3;
-const { namedNode, literal, quad} = DataFactory;
+const { blankNode, namedNode, literal, quad} = DataFactory;
 
 const AS_TYPE      = 'https://www.w3.org/ns/activitystreams#';
 const LDP_TYPE     = 'http://www.w3.org/ns/ldp#';
@@ -13,6 +13,7 @@ const IETF_TYPE    = 'http://www.iana.org/assignments/relation/';
 const RDF_TYPE     = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
 const DCT_TYPE     = 'http://purl.org/dc/terms/';
 const DBPEDIA_TYPE = 'https://dbpedia.org/ontology/';
+const ORE_TYPE     = 'http://www.openarchives.org/ore/terms/';
 
 export class EventMaker {
 
@@ -47,6 +48,9 @@ export class EventMaker {
         if (str.startsWith('dbpedia:')) {
             return str.replace('dbpedia:', DBPEDIA_TYPE);
         }
+        if (str.startsWith('ore:')) {
+            return str.replace('ore:', ORE_TYPE);
+        }
         return str;
     }
 
@@ -55,22 +59,33 @@ export class EventMaker {
             prefixes: { 
                 as: AS_TYPE ,
                 ietf: IETF_TYPE,
-                sorg: SCHEMA_TYPE
+                sorg: SCHEMA_TYPE,
+                ore: ORE_TYPE
             } 
         });
         return new Promise<string>( (resolve,reject) =>  {
+            const bn = blankNode();
+
             writer.addQuad(
                 quad(
-                    namedNode(info.id),
+                    bn,
                     namedNode(this.prefix_expand('rdf:type')),
                     namedNode(this.prefix_expand('schema:AboutPage'))
+                )
+            );
+
+            writer.addQuad(
+                quad(
+                    bn,
+                    namedNode(this.prefix_expand('ore:isDescribedBy')),
+                    namedNode(info.id)
                 )
             );
 
             if (info.title) {
                 writer.addQuad(
                     quad(
-                        namedNode(info.id),
+                        bn,
                         namedNode(this.prefix_expand('as:summary')),
                         literal(info.title)
                     )
@@ -80,7 +95,7 @@ export class EventMaker {
             if (info.year) {
                 writer.addQuad(
                     quad(
-                        namedNode(info.id),
+                        bn,
                         namedNode(this.prefix_expand('schema:datePublished')),
                         literal(info.year)
                     )
@@ -90,7 +105,7 @@ export class EventMaker {
             if (info.doi) {
                 writer.addQuad(
                     quad(
-                        namedNode(info.id),
+                        bn,
                         namedNode(this.prefix_expand('ietf:cite-as')),
                         namedNode(info.doi)
                     )
@@ -100,7 +115,7 @@ export class EventMaker {
             if (info.file) {
                 writer.addQuad(
                     quad(
-                        namedNode(info.id),
+                        bn,
                         namedNode(this.prefix_expand('as:url')),
                         namedNode(info.file.id)
                     ) 
@@ -137,7 +152,7 @@ export class EventMaker {
                 info.authors.forEach( (author: string) => {
                     writer.addQuad(
                         quad(
-                            namedNode(info.id),
+                            bn,
                             namedNode(this.prefix_expand('schema:creator')),
                             namedNode(author)
                         )
@@ -149,7 +164,7 @@ export class EventMaker {
                 info.affiliation.forEach( (affiliation: string) => {
                     writer.addQuad(
                         quad(
-                            namedNode(info.id),
+                            bn,
                             namedNode(this.prefix_expand('schema:affiliation')),
                             namedNode(affiliation)
                         )
@@ -160,7 +175,7 @@ export class EventMaker {
             if (typeof info.peer_reviewed !== 'undefined') {
                 writer.addQuad(
                     quad(
-                        namedNode(info.id),
+                        bn,
                         namedNode(this.prefix_expand('dbpedia:isPeerReviewed')),
                         literal(info.peer_reviewed)
                     )

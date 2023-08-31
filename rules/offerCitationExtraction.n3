@@ -15,9 +15,7 @@
     # This about page should also have a url
     ?id as:url ?url .
 
-    ?id log:uri ?id_str .
-    ( ?id_str ".rdf" ) string:concatenation ?isDescribedByStr .
-    ?isDescribedBy log:uri ?isDescribedByStr .
+    ?id ore:isDescribedBy ?isDescribedBy .
 }
 =>
 {
