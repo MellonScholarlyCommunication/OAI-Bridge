@@ -30,12 +30,12 @@
                 a as:Offer , ex:CitationExtraction ;
                 as:actor     <https://repository.ubn.ru.nl/profile/card#me>  ;
                 as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
-                as:object    ?url ;
+                as:object    ?isDescribedBy ;
                 as:target    <http://localhost:3000/ces/profile/card#me>
         ]
     ] .
 
-    ?url ore:isDescribedBy ?isDescribedBy .
+    ?isDescribedBy as:url ?url .
 }.
 
 # Some metadata about the actors involved in this communication
